@@ -83,7 +83,7 @@ function editProgress(){
 	const { children } = nodeManager.getTodoItemListContainerNode();
 	const todoItems = [ ...children ];
 	const totalItems = todoItems.length;
-	const checkedItemsCount = todoItems.reduce((acc, el)=> acc+=Number(el.children[0].checked), 0);
+	const checkedItemsCount = todoItems.reduce((acc, el)=> acc+=Number(nodeManager.getTodoItemChildNodes(el).checkbox.checked), 0);
 
 	nodeManager.getProgressbarNode().innerText = `${checkedItemsCount} of ${totalItems} tasks done`;
 }
