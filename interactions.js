@@ -1,9 +1,10 @@
 function checkTodoItem(todoItem){
-	const { editButton, text } = nodeManager.getTodoItemChildNodes(todoItem);
+	const { editButton } = nodeManager.getTodoItemChildNodes(todoItem);
 	if (editButton.isSave){
 		saveTodoItem(todoItem)
 	}
 
+	const { text } = nodeManager.getTodoItemChildNodes(todoItem);
 	const listContainer = nodeManager.getTodoItemListContainerNode();
 
 	text.style.textDecoration = 'line-through';
