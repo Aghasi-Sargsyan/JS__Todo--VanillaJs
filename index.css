@@ -32,3 +32,11 @@
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
 }
+.progress {
+  width: 10rem;
+  height: 2rem;
+}
+.progress-bar {
+  background-color: yellow;
+  height: 100%;
+}

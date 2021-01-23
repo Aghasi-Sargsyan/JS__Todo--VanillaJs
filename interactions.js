@@ -89,6 +89,8 @@ function removeCheckedTodos() {
 }
 
 function editProgress() {
+  const progressText = document.createElement("p");
+  // const progressDefaultText =
   const { children } = nodeManager.getTodoItemListContainer();
   const todoItems = [...children];
   const totalItems = todoItems.length;
@@ -96,5 +98,6 @@ function editProgress() {
     (acc, el) => (acc += Number(el.children[0].checked)),
     0
   );
-  nodeManager.getProgressbar().innerText = `${checkedItemsCount} of ${totalItems} tasks done`;
+  progressText.innerText = `${checkedItemsCount} of ${totalItems} tasks done`;
+  nodeManager.getProgressbar().append(progressText);
 }
