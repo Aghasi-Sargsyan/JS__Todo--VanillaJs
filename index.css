@@ -21,7 +21,6 @@
   padding: 1rem 2rem;
 }
 .main-input {
-  border-color: #a09e89;
   border: 2px solid #a09e89;
   width: 30rem;
   font-style: italic;
@@ -78,51 +77,79 @@
   padding: 0.5rem 0.5rem;
   border: 1px solid #eceff3;
   margin-top: 2px;
+  display: flex;
+  justify-content: space-between;
 }
-.todo-item-remove-button,
-.todo-item-edit-button {
-  float: right;
-  background-color: white;
+
+.todo-item-left-wrapper,
+.todo-item-right-wrapper {
+  display: flex;
+  align-items: center;
 }
 
 .todo-item-text {
-  margin-left: 4px;
+  margin-left: 8px;
   color: #489bc1;
 }
+
+.todo-item-edit-button {
+  background: url("assets/edit_icon.svg");
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 10px;
+}
+
+.todo-item-remove-button {
+  background: url("assets/cancel_icon.svg");
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 10px;
+}
+
+.todo-item-drag-button {
+  background-image: url('assets/drag.svg');
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 10px;
+  background-color: white;
+}
+
 .todo-item-remove-button,
 .todo-item-edit-button,
 .todo-item-checkbox {
   cursor: pointer;
 }
-.todo-item-edit-button {
-  background: url("edit_icon.svg");
-  width: 1.2rem;
-  height: 1.2rem;
+
+.todo-item-drag-button {
+  cursor: grab;
 }
-.todo-item-remove-button {
-  background: url("cancel_icon.svg");
-  width: 1.2rem;
-  height: 1.2rem;
-  margin-right: 10px;
+
+.todo-item-drag-button:active {
+  cursor: grabbing;
 }
+
 .edit-input {
   margin-left: 0.4rem;
   font-style: italic;
   color: #395c60;
-  width: 430px;
+  width: 390px;
 }
 
 /*.todo-item.edit-state {*/
 /*  cursor: pointer;*/
 /*}*/
 
-.todo-item.edit-state > .todo-item-edit-button {
-  background-image: url('edit_icon.svg');
+.todo-item.edit-state > .todo-item-right-wrapper > .todo-item-edit-button {
+  background-image: url('assets/edit_icon.svg');
 }
 
-.todo-item.save-state > .todo-item-edit-button {
-  background-image: url('check_mark_icon.svg');
+.todo-item.save-state > .todo-item-right-wrapper > .todo-item-edit-button {
+  background-image: url('assets/check_mark_icon.svg');
   background-size:  1.2rem;
+}
+
+.todo-item-container > li {
+  list-style-type: none;
 }
 
 

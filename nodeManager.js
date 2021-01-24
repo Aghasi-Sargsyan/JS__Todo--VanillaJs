@@ -2,11 +2,17 @@ const nodeManager = {
   todoItemIndex: 0,
 
   createTodoItemNode(text) {
-    const todoItem = document.createElement("div");
+    const todoItem = document.createElement("li");
     const checkbox = document.createElement("input");
     const itemText = document.createElement("span");
     const editButton = document.createElement("button");
     const removeButton = document.createElement("button");
+    const dragButton = document.createElement('button');
+    const todoItemLeftWrapper = document.createElement('div');
+    const todoItemRightWrapper = document.createElement('div');
+
+    todoItemLeftWrapper.classList.add("todo-item-left-wrapper")
+    todoItemRightWrapper.classList.add("todo-item-right-wrapper")
 
     todoItem.classList.add("todo-item", "edit-state");
     todoItem.index = String(this.todoItemIndex++);
@@ -21,10 +27,11 @@ const nodeManager = {
 
     removeButton.classList.add("todo-item-remove-button");
 
-    todoItem.append(checkbox);
-    todoItem.append(itemText);
-    todoItem.append(editButton);
-    todoItem.append(removeButton);
+    dragButton.classList.add("todo-item-drag-button")
+
+    todoItemLeftWrapper.append(checkbox, itemText)
+    todoItemRightWrapper.append(dragButton, editButton, removeButton)
+    todoItem.append(todoItemLeftWrapper, todoItemRightWrapper)
 
     checkbox.addEventListener("change", () => {
       if (checkbox.checked) {
@@ -67,7 +74,10 @@ const nodeManager = {
     const text = todoItem.querySelector(".todo-item-text");
     const editButton = todoItem.querySelector(".todo-item-edit-button");
     const checkbox = todoItem.querySelector(".todo-item-checkbox");
+    const dragButton = todoItem.querySelector(".todo-item-drag-button");
+    const leftWrapper = todoItem.querySelector(".todo-item-left-wrapper")
+    const rightWrapper = todoItem.querySelector(".todo-item-right-wrapper")
 
-    return { text, editButton, checkbox };
+    return { text, editButton, checkbox, dragButton, leftWrapper, rightWrapper };
   },
 };

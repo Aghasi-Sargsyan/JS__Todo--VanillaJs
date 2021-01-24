@@ -23,7 +23,7 @@ function uncheckTodoItem(todoItem){
 }
 
 function editTodoItem(todoItem) {
-	const { checkbox, editButton, text } = nodeManager.getTodoItemChildNodes(todoItem);
+	const { checkbox, leftWrapper, text } = nodeManager.getTodoItemChildNodes(todoItem);
 	const editInput = document.createElement("input");
 
 	if (checkbox.checked) {
@@ -32,9 +32,8 @@ function editTodoItem(todoItem) {
 	editProgress();
 	}
 
-	todoItem.insertBefore(editInput, editButton);
+	leftWrapper.replaceChild(editInput, text)
 	editInput.value = text.innerText;
-	todoItem.removeChild(text);
 	editInput.classList.add('edit-input', `edit-input-${todoItem.index}`);
 	todoItem.classList.replace('edit-state','save-state');
 	editInput.focus();
@@ -43,13 +42,13 @@ function editTodoItem(todoItem) {
 function saveTodoItem(todoItem) {
 	const text = document.createElement("span");
 	const editInput = document.querySelector(`.edit-input-${todoItem.index}`);
-	const { editButton } = nodeManager.getTodoItemChildNodes(todoItem);
+	const { leftWrapper } = nodeManager.getTodoItemChildNodes(todoItem);
 
 	text.classList.add("todo-item-text");
 	todoItem.classList.replace('save-state', 'edit-state')
 	text.innerText = editInput.value;
-	todoItem.insertBefore(text, editButton);
-	todoItem.removeChild(editInput);
+
+	leftWrapper.replaceChild(text, editInput);
 }
 
 function removeTodoItem(todoItem){
