@@ -32,9 +32,7 @@ const nodeManager = {
       editProgress();
     });
 
-    removeButton.addEventListener("click", () => {
-      removeTodoItem(todoItem);
-    });
+    removeButton.addEventListener("click", () => removeTodoItem(todoItem));
 
     editButton.addEventListener("click", () => {
       if (!editButton.isSave) {
@@ -47,23 +45,25 @@ const nodeManager = {
     return todoItem;
   },
 
-  getAddButton() {
-    return document.querySelector(".add-button");
-  },
+  getAddButtonNode: () => document.querySelector(".add-button"),
 
-  getInput() {
-    return document.querySelector(".main-input");
-  },
+  getInputNode: () => document.querySelector(".main-input"),
 
-  getTodoItemListContainer() {
-    return document.querySelector(".todo-item-container");
-  },
+  getTodoItemListContainerNode: () =>
+    document.querySelector(".todo-item-container"),
 
-  getRemoveCheckedButton() {
-    return document.querySelector(".remove-checked-button");
-  },
+  getRemoveCheckedButtonNode: () =>
+    document.querySelector(".remove-checked-button"),
 
-  getProgressbar() {
-    return document.querySelector(".progress");
+  getProgressbarNode: () => document.querySelector(".progress"),
+  getProgressbarTextNode: () => document.querySelector(".progress-text"),
+  getProgressbarLoadingNode: () => document.querySelector(".progress-bar"),
+
+  getTodoItemChildNodes(todoItem) {
+    const text = todoItem.querySelector(".todo-item-text");
+    const editButton = todoItem.querySelector(".todo-item-edit-button");
+    const checkbox = todoItem.querySelector(".todo-item-checkbox");
+
+    return { text, editButton, checkbox };
   },
 };

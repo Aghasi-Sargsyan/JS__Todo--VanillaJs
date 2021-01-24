@@ -1,11 +1,11 @@
 function checkTodoItem(todoItem) {
-  const editButton = todoItem.querySelector(".todo-item-edit-button");
+  const { editButton } = nodeManager.getTodoItemChildNodes(todoItem);
   if (editButton.isSave) {
     saveTodoItem(todoItem);
   }
 
-  const listContainer = nodeManager.getTodoItemListContainer();
-  const text = todoItem.querySelector(".todo-item-text");
+  const { text } = nodeManager.getTodoItemChildNodes(todoItem);
+  const listContainer = nodeManager.getTodoItemListContainerNode();
 
   text.style.textDecoration = "line-through";
   if (listContainer.lastChild !== todoItem) {
@@ -15,8 +15,8 @@ function checkTodoItem(todoItem) {
 }
 
 function uncheckTodoItem(todoItem) {
-  const listContainer = nodeManager.getTodoItemListContainer();
-  const text = todoItem.querySelector(".todo-item-text");
+  const listContainer = nodeManager.getTodoItemListContainerNode();
+  const { text } = nodeManager.getTodoItemChildNodes(todoItem);
 
   text.style.textDecoration = "";
   listContainer.removeChild(todoItem);
@@ -24,14 +24,15 @@ function uncheckTodoItem(todoItem) {
 }
 
 function editTodoItem(todoItem) {
-  const text = todoItem.querySelector(".todo-item-text");
-  const editButton = todoItem.querySelector(".todo-item-edit-button");
-  const checkbox = todoItem.querySelector(".todo-item-checkbox");
+  const { checkbox, editButton, text } = nodeManager.getTodoItemChildNodes(
+    todoItem
+  );
   const editInput = document.createElement("input");
 
   if (checkbox.checked) {
     uncheckTodoItem(todoItem);
     checkbox.checked = false;
+    editProgress();
   }
 
   editInput.className = `editInput${todoItem.index}`;
@@ -44,10 +45,10 @@ function editTodoItem(todoItem) {
 
 function saveTodoItem(todoItem) {
   const text = document.createElement("span");
-  text.className = "todo-item-text";
-  const editButton = todoItem.querySelector(".todo-item-edit-button");
   const editInput = document.querySelector(`.editInput${todoItem.index}`);
+  const { editButton } = nodeManager.getTodoItemChildNodes(todoItem);
 
+  text.className = "todo-item-text";
   editButton.innerText = "edit";
   editButton.isSave = false;
   text.innerText = editInput.value;
@@ -56,7 +57,7 @@ function saveTodoItem(todoItem) {
 }
 
 function removeTodoItem(todoItem) {
-  const listContainer = nodeManager.getTodoItemListContainer();
+  const listContainer = nodeManager.getTodoItemListContainerNode();
 
   listContainer.removeChild(todoItem);
   reIndexNodeList(listContainer.children);
@@ -64,40 +65,37 @@ function removeTodoItem(todoItem) {
 }
 
 function addTodoItem(inputNode) {
-  const text = inputNode.value;
-  if (text) {
+  if (inputNode.value) {
     nodeManager
-      .getTodoItemListContainer()
-      .append(nodeManager.createTodoItemNode(text));
-    editProgress();
+      .getTodoItemListContainerNode()
+      .append(nodeManager.createTodoItemNode(inputNode.value));
     inputNode.value = "";
+    editProgress();
   }
 }
 
 function removeCheckedTodos() {
-  const listContainer = nodeManager.getTodoItemListContainer();
+  const listContainer = nodeManager.getTodoItemListContainerNode();
   const todoItems = [...listContainer.children];
-  const checkedTodoItems = todoItems.filter((item) => {
-    const checkbox = item.children[0];
-    return checkbox.checked;
-  });
-  checkedTodoItems.forEach((item) => {
-    listContainer.removeChild(item);
-  });
+  const checkedTodoItems = todoItems.filter(
+    (item) => nodeManager.getTodoItemChildNodes(item).checkbox.checked
+  );
+
+  checkedTodoItems.forEach((item) => listContainer.removeChild(item));
   reIndexNodeList(listContainer.children);
   editProgress();
 }
 
 function editProgress() {
-  const progressText = document.createElement("p");
-  // const progressDefaultText =
-  const { children } = nodeManager.getTodoItemListContainer();
+  const { children } = nodeManager.getTodoItemListContainerNode();
   const todoItems = [...children];
   const totalItems = todoItems.length;
   const checkedItemsCount = todoItems.reduce(
-    (acc, el) => (acc += Number(el.children[0].checked)),
+    (acc, el) =>
+      (acc += Number(nodeManager.getTodoItemChildNodes(el).checkbox.checked)),
     0
   );
-  progressText.innerText = `${checkedItemsCount} of ${totalItems} tasks done`;
-  nodeManager.getProgressbar().append(progressText);
+  const progress = Math.ceil((checkedItemsCount / todoItems.length) * 100);
+  nodeManager.getProgressbarLoadingNode().style.width = `${progress}%`;
+  nodeManager.getProgressbarTextNode().innerText = `${checkedItemsCount} of ${totalItems} tasks done`;
 }
