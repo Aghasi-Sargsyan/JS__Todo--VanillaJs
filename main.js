@@ -1,5 +1,7 @@
-nodeManager.getRemoveCheckedButtonNode().addEventListener('click', ()=> removeCheckedTodos());
+nodeManager
+  .getRemoveCheckedButtonNode()
+  .addEventListener("click", () => removeCheckedTodos());
 
-nodeManager.getAddButtonNode().addEventListener('click', ()=> addTodoItem(nodeManager.getInputNode()));
-
-
+nodeManager
+  .getAddButtonNode()
+  .addEventListener("click", () => addTodoItem(nodeManager.getInputNode()));
