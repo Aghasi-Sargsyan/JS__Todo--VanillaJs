@@ -72,15 +72,20 @@ function addTodoItem(inputNode) {
 }
 
 function removeCheckedTodos() {
+  const {
+    progressLoadingNode,
+    progressTextNode,
+  } = nodeManager.getProgressbarChildNodes();
   const listContainer = nodeManager.getTodoItemListContainerNode();
   const todoItems = [...listContainer.children];
   const checkedTodoItems = todoItems.filter(
     (item) => nodeManager.getTodoItemChildNodes(item).checkbox.checked
   );
-
+  progressLoadingNode.style.width = `0`;
   checkedTodoItems.forEach((item) => listContainer.removeChild(item));
   reIndexNodeList(listContainer.children);
   editProgress();
+  progressTextNode.innerText = "nothing here";
 }
 
 function editProgress() {
