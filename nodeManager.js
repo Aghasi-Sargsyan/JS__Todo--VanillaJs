@@ -3,18 +3,24 @@ const nodeManager = {
 
   createTodoItemNode(text) {
     const todoItem = document.createElement("div");
+    const checkbox = document.createElement("input");
+    const itemText = document.createElement("span");
+    const editButton = document.createElement("button");
+    const removeButton = document.createElement("button");
+
     todoItem.classList.add("todo-item", "edit-state");
     todoItem.index = String(this.todoItemIndex++);
-    const checkbox = document.createElement("input");
+
     checkbox.type = "checkbox";
     checkbox.classList.add("todo-item-checkbox");
-    const itemText = document.createElement("span");
+
     itemText.innerText = text;
     itemText.classList.add("todo-item-text");
-    const editButton = document.createElement("button");
+
     editButton.classList.add( "todo-item-edit-button");
-    const removeButton = document.createElement("button");
+
     removeButton.classList.add("todo-item-remove-button");
+
     todoItem.append(checkbox);
     todoItem.append(itemText);
     todoItem.append(editButton);
@@ -46,15 +52,16 @@ const nodeManager = {
 
   getInputNode: () => document.querySelector(".main-input"),
 
-  getTodoItemListContainerNode: () =>
-    document.querySelector(".todo-item-container"),
+  getTodoItemListContainerNode: () => document.querySelector(".todo-item-container"),
 
-  getRemoveCheckedButtonNode: () =>
-    document.querySelector(".remove-checked-button"),
+  getRemoveCheckedButtonNode: () => document.querySelector(".remove-checked-button"),
 
-  getProgressbarNode: () => document.querySelector(".progress"),
-  getProgressbarTextNode: () => document.querySelector(".progress-text"),
-  getProgressbarLoadingNode: () => document.querySelector(".progress-bar"),
+  getProgressbarChildNodes: () => {
+    const progressTextNode = document.querySelector(".progress-text")
+    const progressLoadingNode = document.querySelector(".progress-bar")
+
+    return {progressTextNode, progressLoadingNode}
+  },
 
   getTodoItemChildNodes(todoItem) {
     const text = todoItem.querySelector(".todo-item-text");
