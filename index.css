@@ -5,6 +5,8 @@
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  font-family: Arial, Helvetica, sans-serif;
+  outline: none;
 }
 .wrapper {
   width: 100vw;
@@ -19,21 +21,20 @@
   padding: 1rem 2rem;
 }
 .main-input {
-  border-color: #a09e89;
   border: 2px solid #a09e89;
   width: 30rem;
   font-style: italic;
   color: #395c60;
   height: 2rem;
+  text-align: center;
 }
 .wrapper .container .top-block h3 {
   font-size: 1.875rem;
   text-transform: uppercase;
-  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
 }
 .progress {
-  width: 10rem;
+  width: 11rem;
   height: 2rem;
   position: relative;
   z-index: 1;
@@ -51,7 +52,102 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 7rem;
+  width: 8rem;
   z-index: 3;
   text-align: center;
+}
+.add-button {
+  width: 2.2rem;
+  height: 2.2rem;
+  background-color: #489bc1;
+  color: white;
+  cursor: pointer;
+}
+.bot-block {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+.remove-checked-button {
+  padding: 0.4rem 0.8rem;
+  color: white;
+  background-color: #489bc1;
+}
+.todo-item {
+  padding: 0.5rem 0.5rem;
+  border: 1px solid #eceff3;
+  margin-top: 2px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.todo-item-left-wrapper,
+.todo-item-right-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.todo-item-text {
+  margin-left: 8px;
+  color: #489bc1;
+}
+
+.todo-item-edit-button {
+  background: url("assets/edit_icon.svg");
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 10px;
+}
+
+.todo-item-remove-button {
+  background: url("assets/cancel_icon.svg");
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 10px;
+}
+
+.todo-item-drag-button {
+  background-image: url("assets/drag.svg");
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 10px;
+  background-color: white;
+}
+
+.todo-item-remove-button,
+.todo-item-edit-button,
+.todo-item-checkbox {
+  cursor: pointer;
+}
+
+.todo-item-drag-button {
+  cursor: grab;
+}
+
+.todo-item-drag-button:active {
+  cursor: grabbing;
+}
+
+.edit-input {
+  margin-left: 0.4rem;
+  font-style: italic;
+  color: #395c60;
+  width: 390px;
+}
+
+/*.todo-item.edit-state {*/
+/*  cursor: pointer;*/
+/*}*/
+
+.todo-item.edit-state > .todo-item-right-wrapper > .todo-item-edit-button {
+  background-image: url("assets/edit_icon.svg");
+}
+
+.todo-item.save-state > .todo-item-right-wrapper > .todo-item-edit-button {
+  background-image: url("assets/check_mark_icon.svg");
+  background-size: 1.2rem;
+}
+
+.todo-item-container > li {
+  list-style-type: none;
 }

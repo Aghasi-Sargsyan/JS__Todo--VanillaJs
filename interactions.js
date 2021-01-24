@@ -1,6 +1,5 @@
 function checkTodoItem(todoItem) {
-  const { editButton } = nodeManager.getTodoItemChildNodes(todoItem);
-  if (editButton.isSave) {
+  if (todoItem.classList.contains("save-state")) {
     saveTodoItem(todoItem);
   }
 
@@ -24,7 +23,7 @@ function uncheckTodoItem(todoItem) {
 }
 
 function editTodoItem(todoItem) {
-  const { checkbox, editButton, text } = nodeManager.getTodoItemChildNodes(
+  const { checkbox, leftWrapper, text } = nodeManager.getTodoItemChildNodes(
     todoItem
   );
   const editInput = document.createElement("input");
@@ -35,25 +34,23 @@ function editTodoItem(todoItem) {
     editProgress();
   }
 
-  editInput.className = `editInput${todoItem.index}`;
+  leftWrapper.replaceChild(editInput, text);
   editInput.value = text.innerText;
-  todoItem.removeChild(text);
-  todoItem.insertBefore(editInput, editButton);
-  editButton.innerText = "save";
-  editButton.isSave = true;
+  editInput.classList.add("edit-input", `edit-input-${todoItem.index}`);
+  todoItem.classList.replace("edit-state", "save-state");
+  editInput.focus();
 }
 
 function saveTodoItem(todoItem) {
   const text = document.createElement("span");
-  const editInput = document.querySelector(`.editInput${todoItem.index}`);
-  const { editButton } = nodeManager.getTodoItemChildNodes(todoItem);
+  const editInput = document.querySelector(`.edit-input-${todoItem.index}`);
+  const { leftWrapper } = nodeManager.getTodoItemChildNodes(todoItem);
 
-  text.className = "todo-item-text";
-  editButton.innerText = "edit";
-  editButton.isSave = false;
+  text.classList.add("todo-item-text");
+  todoItem.classList.replace("save-state", "edit-state");
   text.innerText = editInput.value;
-  todoItem.insertBefore(text, editButton);
-  todoItem.removeChild(editInput);
+
+  leftWrapper.replaceChild(text, editInput);
 }
 
 function removeTodoItem(todoItem) {
@@ -87,6 +84,10 @@ function removeCheckedTodos() {
 }
 
 function editProgress() {
+  const {
+    progressLoadingNode,
+    progressTextNode,
+  } = nodeManager.getProgressbarChildNodes();
   const { children } = nodeManager.getTodoItemListContainerNode();
   const todoItems = [...children];
   const totalItems = todoItems.length;
@@ -96,6 +97,6 @@ function editProgress() {
     0
   );
   const progress = Math.ceil((checkedItemsCount / todoItems.length) * 100);
-  nodeManager.getProgressbarLoadingNode().style.width = `${progress}%`;
-  nodeManager.getProgressbarTextNode().innerText = `${checkedItemsCount} of ${totalItems} tasks done`;
+  progressLoadingNode.style.width = `${progress}%`;
+  progressTextNode.innerText = `${checkedItemsCount} of ${totalItems} tasks done`;
 }

@@ -2,26 +2,36 @@ const nodeManager = {
   todoItemIndex: 0,
 
   createTodoItemNode(text) {
-    const todoItem = document.createElement("div");
-    todoItem.className = "todo-item";
-    todoItem.index = String(this.todoItemIndex++);
+    const todoItem = document.createElement("li");
     const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.className = "todo-item-checkbox";
     const itemText = document.createElement("span");
-    itemText.innerText = text;
-    itemText.className = "todo-item-text";
     const editButton = document.createElement("button");
-    editButton.innerText = "edit";
-    editButton.className = "todo-item-edit-button";
-    editButton.isSave = false;
     const removeButton = document.createElement("button");
-    removeButton.innerText = "remove";
-    removeButton.className = "todo-item-remove-button";
-    todoItem.append(checkbox);
-    todoItem.append(itemText);
-    todoItem.append(editButton);
-    todoItem.append(removeButton);
+    const dragButton = document.createElement("button");
+    const todoItemLeftWrapper = document.createElement("div");
+    const todoItemRightWrapper = document.createElement("div");
+
+    todoItemLeftWrapper.classList.add("todo-item-left-wrapper");
+    todoItemRightWrapper.classList.add("todo-item-right-wrapper");
+
+    todoItem.classList.add("todo-item", "edit-state");
+    todoItem.index = String(this.todoItemIndex++);
+
+    checkbox.type = "checkbox";
+    checkbox.classList.add("todo-item-checkbox");
+
+    itemText.innerText = text;
+    itemText.classList.add("todo-item-text");
+
+    editButton.classList.add("todo-item-edit-button");
+
+    removeButton.classList.add("todo-item-remove-button");
+
+    dragButton.classList.add("todo-item-drag-button");
+
+    todoItemLeftWrapper.append(checkbox, itemText);
+    todoItemRightWrapper.append(dragButton, editButton, removeButton);
+    todoItem.append(todoItemLeftWrapper, todoItemRightWrapper);
 
     checkbox.addEventListener("change", () => {
       if (checkbox.checked) {
@@ -35,7 +45,7 @@ const nodeManager = {
     removeButton.addEventListener("click", () => removeTodoItem(todoItem));
 
     editButton.addEventListener("click", () => {
-      if (!editButton.isSave) {
+      if (!todoItem.classList.contains("save-state")) {
         editTodoItem(todoItem);
       } else {
         saveTodoItem(todoItem);
@@ -55,15 +65,28 @@ const nodeManager = {
   getRemoveCheckedButtonNode: () =>
     document.querySelector(".remove-checked-button"),
 
-  getProgressbarNode: () => document.querySelector(".progress"),
-  getProgressbarTextNode: () => document.querySelector(".progress-text"),
-  getProgressbarLoadingNode: () => document.querySelector(".progress-bar"),
+  getProgressbarChildNodes: () => {
+    const progressTextNode = document.querySelector(".progress-text");
+    const progressLoadingNode = document.querySelector(".progress-bar");
+
+    return { progressTextNode, progressLoadingNode };
+  },
 
   getTodoItemChildNodes(todoItem) {
     const text = todoItem.querySelector(".todo-item-text");
     const editButton = todoItem.querySelector(".todo-item-edit-button");
     const checkbox = todoItem.querySelector(".todo-item-checkbox");
+    const dragButton = todoItem.querySelector(".todo-item-drag-button");
+    const leftWrapper = todoItem.querySelector(".todo-item-left-wrapper");
+    const rightWrapper = todoItem.querySelector(".todo-item-right-wrapper");
 
-    return { text, editButton, checkbox };
+    return {
+      text,
+      editButton,
+      checkbox,
+      dragButton,
+      leftWrapper,
+      rightWrapper,
+    };
   },
 };
