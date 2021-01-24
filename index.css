@@ -107,7 +107,7 @@
 }
 
 .todo-item-drag-button {
-  background-image: url('assets/drag.svg');
+  background-image: url("assets/drag.svg");
   width: 1.2rem;
   height: 1.2rem;
   margin-right: 10px;
@@ -140,17 +140,14 @@
 /*}*/
 
 .todo-item.edit-state > .todo-item-right-wrapper > .todo-item-edit-button {
-  background-image: url('assets/edit_icon.svg');
+  background-image: url("assets/edit_icon.svg");
 }
 
 .todo-item.save-state > .todo-item-right-wrapper > .todo-item-edit-button {
-  background-image: url('assets/check_mark_icon.svg');
-  background-size:  1.2rem;
+  background-image: url("assets/check_mark_icon.svg");
+  background-size: 1.2rem;
 }
 
 .todo-item-container > li {
   list-style-type: none;
 }
-
-
-
