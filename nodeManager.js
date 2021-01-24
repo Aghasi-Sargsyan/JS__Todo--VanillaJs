@@ -3,19 +3,18 @@ const nodeManager = {
 
   createTodoItemNode(text) {
     const todoItem = document.createElement("div");
-    todoItem.className = "todo-item";
+    todoItem.classList.add("todo-item", "edit-state");
     todoItem.index = String(this.todoItemIndex++);
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.className = "todo-item-checkbox";
+    checkbox.classList.add("todo-item-checkbox");
     const itemText = document.createElement("span");
     itemText.innerText = text;
-    itemText.className = "todo-item-text";
+    itemText.classList.add("todo-item-text");
     const editButton = document.createElement("button");
-    editButton.className = "todo-item-edit-button";
-    editButton.isSave = false;
+    editButton.classList.add( "todo-item-edit-button");
     const removeButton = document.createElement("button");
-    removeButton.className = "todo-item-remove-button";
+    removeButton.classList.add("todo-item-remove-button");
     todoItem.append(checkbox);
     todoItem.append(itemText);
     todoItem.append(editButton);
@@ -33,7 +32,7 @@ const nodeManager = {
     removeButton.addEventListener("click", () => removeTodoItem(todoItem));
 
     editButton.addEventListener("click", () => {
-      if (!editButton.isSave) {
+      if (!todoItem.classList.contains("save-state")) {
         editTodoItem(todoItem);
       } else {
         saveTodoItem(todoItem);

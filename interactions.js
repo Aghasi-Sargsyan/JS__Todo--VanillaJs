@@ -1,6 +1,5 @@
 function checkTodoItem(todoItem){
-	const { editButton } = nodeManager.getTodoItemChildNodes(todoItem);
-	if (editButton.isSave){
+	if (todoItem.classList.contains('save-state')){
 		saveTodoItem(todoItem)
 	}
 
@@ -24,9 +23,7 @@ function uncheckTodoItem(todoItem){
 }
 
 function editTodoItem(todoItem) {
-	const { checkbox, editButton, text } = nodeManager.getTodoItemChildNodes(
-	todoItem
-	);
+	const { checkbox, editButton, text } = nodeManager.getTodoItemChildNodes(todoItem);
 	const editInput = document.createElement("input");
 
 	if (checkbox.checked) {
@@ -35,23 +32,21 @@ function editTodoItem(todoItem) {
 	editProgress();
 	}
 
-	editInput.className = `edit-input ${todoItem.index}`;
+	todoItem.insertBefore(editInput, editButton);
 	editInput.value = text.innerText;
 	todoItem.removeChild(text);
-	todoItem.insertBefore(editInput, editButton);
-	editButton.style.backgroundImage = "url('check_mark_icon.svg')";
-	editButton.style.backgroundSize = "1.2rem";
-	editButton.isSave = true;
+	editInput.classList.add('edit-input', `edit-input-${todoItem.index}`);
+	todoItem.classList.replace('edit-state','save-state');
+	editInput.focus();
 }
 
 function saveTodoItem(todoItem) {
 	const text = document.createElement("span");
-	const editInput = document.querySelector(`.edit-input`);
+	const editInput = document.querySelector(`.edit-input-${todoItem.index}`);
 	const { editButton } = nodeManager.getTodoItemChildNodes(todoItem);
 
-	text.className = "todo-item-text";
-	editButton.style.backgroundImage = "url('edit_icon.svg')";
-	editButton.isSave = false;
+	text.classList.add("todo-item-text");
+	todoItem.classList.replace('save-state', 'edit-state')
 	text.innerText = editInput.value;
 	todoItem.insertBefore(text, editButton);
 	todoItem.removeChild(editInput);

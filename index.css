@@ -109,4 +109,21 @@
   margin-left: 0.4rem;
   font-style: italic;
   color: #395c60;
+  width: 430px;
 }
+
+/*.todo-item.edit-state {*/
+/*  cursor: pointer;*/
+/*}*/
+
+.todo-item.edit-state > .todo-item-edit-button {
+  background-image: url('edit_icon.svg');
+}
+
+.todo-item.save-state > .todo-item-edit-button {
+  background-image: url('check_mark_icon.svg');
+  background-size:  1.2rem;
+}
+
+
+
