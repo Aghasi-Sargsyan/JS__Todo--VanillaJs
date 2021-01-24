@@ -5,6 +5,8 @@
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  font-family: Arial, Helvetica, sans-serif;
+  outline: none;
 }
 .wrapper {
   width: 100vw;
@@ -25,15 +27,15 @@
   font-style: italic;
   color: #395c60;
   height: 2rem;
+  text-align: center;
 }
 .wrapper .container .top-block h3 {
   font-size: 1.875rem;
   text-transform: uppercase;
-  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
 }
 .progress {
-  width: 10rem;
+  width: 11rem;
   height: 2rem;
   position: relative;
   z-index: 1;
@@ -51,7 +53,60 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 7rem;
+  width: 8rem;
   z-index: 3;
   text-align: center;
+}
+.add-button {
+  width: 2.2rem;
+  height: 2.2rem;
+  background-color: #489bc1;
+  color: white;
+  cursor: pointer;
+}
+.bot-block {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+.remove-checked-button {
+  padding: 0.4rem 0.8rem;
+  color: white;
+  background-color: #489bc1;
+}
+.todo-item {
+  padding: 0.5rem 0.5rem;
+  border: 1px solid #eceff3;
+  margin-top: 2px;
+}
+.todo-item-remove-button,
+.todo-item-edit-button {
+  float: right;
+  background-color: white;
+}
+
+.todo-item-text {
+  margin-left: 4px;
+  color: #489bc1;
+}
+.todo-item-remove-button,
+.todo-item-edit-button,
+.todo-item-checkbox {
+  cursor: pointer;
+}
+.todo-item-edit-button {
+  background: url("edit_icon.svg");
+  width: 1.2rem;
+  height: 1.2rem;
+}
+.todo-item-remove-button {
+  background: url("cancel_icon.svg");
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 10px;
+}
+.edit-input {
+  margin-left: 0.4rem;
+  font-style: italic;
+  color: #395c60;
 }

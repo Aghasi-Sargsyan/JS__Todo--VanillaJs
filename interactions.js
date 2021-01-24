@@ -35,21 +35,23 @@ function editTodoItem(todoItem) {
     editProgress();
   }
 
-  editInput.className = `editInput${todoItem.index}`;
+  editInput.className = `edit-input ${todoItem.index}`;
   editInput.value = text.innerText;
   todoItem.removeChild(text);
   todoItem.insertBefore(editInput, editButton);
-  editButton.innerText = "save";
+  editButton.style.backgroundImage = "url('check_mark_icon.svg')";
+  editButton.style.backgroundSize = "1.2rem";
+
   editButton.isSave = true;
 }
 
 function saveTodoItem(todoItem) {
   const text = document.createElement("span");
-  const editInput = document.querySelector(`.editInput${todoItem.index}`);
+  const editInput = document.querySelector(`.edit-input`);
   const { editButton } = nodeManager.getTodoItemChildNodes(todoItem);
-
+  console.log(editInput);
   text.className = "todo-item-text";
-  editButton.innerText = "edit";
+  editButton.style.backgroundImage = "url('edit_icon.svg')";
   editButton.isSave = false;
   text.innerText = editInput.value;
   todoItem.insertBefore(text, editButton);

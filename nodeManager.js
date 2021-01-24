@@ -12,11 +12,9 @@ const nodeManager = {
     itemText.innerText = text;
     itemText.className = "todo-item-text";
     const editButton = document.createElement("button");
-    editButton.innerText = "edit";
     editButton.className = "todo-item-edit-button";
     editButton.isSave = false;
     const removeButton = document.createElement("button");
-    removeButton.innerText = "remove";
     removeButton.className = "todo-item-remove-button";
     todoItem.append(checkbox);
     todoItem.append(itemText);
